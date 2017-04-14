@@ -15,8 +15,8 @@ message_objc_name = 'ROS_{}_{}_{}'.format(package_name, subfolder, type_name)
 
 @@implementation @(message_objc_name)
 +(intptr_t)serviceTypesupportHandle {
-  const rosidl_service_type_support_t * ts = ROSIDL_GET_TYPE_SUPPORT(
-    @(package_name), @(subfolder), @(type_name));
+  const rosidl_service_type_support_t * ts = ROSIDL_GET_SRV_TYPE_SUPPORT(
+    @(spec.pkg_name), @(spec.srv_name));
   return (intptr_t)ts;
 }
 
