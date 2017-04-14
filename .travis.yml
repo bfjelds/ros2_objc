@@ -5,7 +5,7 @@ os: osx
 before_install:
   - brew tap osrf/ros2
   - brew tap ros/deps
-  - brew install python3 wget cmake cppcheck gtest tinyxml eigen pcre
+  - brew install python3 wget cppcheck gtest tinyxml eigen pcre # cmake already installed
   - brew install asio tinyxml2
   - brew tap homebrew/science
   - brew install opencv --without-python
