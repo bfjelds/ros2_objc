@@ -21,7 +21,7 @@ message_objc_name = 'ROS_{}_{}_{}'.format(spec.base_type.pkg_name, subfolder, sp
 @@implementation @(message_objc_name)
 +(intptr_t)typesupportHandle
 {
-  intptr_t ptr = (intptr_t)ROSIDL_GET_TYPE_SUPPORT(@(spec.base_type.pkg_name), @(subfolder), @(spec.msg_name));
+  intptr_t ptr = (intptr_t)ROSIDL_GET_MSG_TYPE_SUPPORT(@(spec.base_type.pkg_name), @(subfolder), @(spec.msg_name));
   return ptr;
 }
 
