@@ -10,7 +10,7 @@ before_install:
   - brew install asio tinyxml2
   - brew tap homebrew/science
 #  - brew install opencv --without-python
-  - python3 -m pip install empy setuptools nose vcstool pep8 pydocstyle pyflakes flake8 mock coverage
+  - sudo python3 -m pip install empy setuptools nose vcstool pep8 pydocstyle pyflakes flake8 mock coverage
 
 script:
   - /bin/echo "Hello world"
