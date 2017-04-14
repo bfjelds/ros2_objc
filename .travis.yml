@@ -8,7 +8,7 @@ before_install:
   - brew install python3 wget cppcheck gtest tinyxml eigen pcre # cmake already installed
   - brew install asio tinyxml2
   - brew tap homebrew/science
-  - brew install opencv --without-python
+  - brew install opencv # --without-python
   - python3 -m pip install empy setuptools nose vcstool pep8 pydocstyle pyflakes flake8 mock coverage
 
 script:
