@@ -1,5 +1,6 @@
 language: objective-c
 osx_image: xcode8.3
+os: osx
 
 script:
   - /bin/echo "Hello world"
