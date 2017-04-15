@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-find_package(rosidl_generator_c REQUIRED)
-find_package(rmw_implementation_cmake REQUIRED)
 find_package(rmw REQUIRED)
+find_package(rmw_implementation_cmake REQUIRED)
+find_package(rosidl_generator_c REQUIRED)
 
 # Get a list of typesupport implementations from valid rmw implementations.
 rosidl_generator_objc_get_typesupports(_typesupport_impls)

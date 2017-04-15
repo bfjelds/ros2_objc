@@ -3,12 +3,24 @@ cmake_minimum_required(VERSION 3.5)
 project(rclobjc C)
 
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_ros REQUIRED)
 find_package(rcl REQUIRED)
 find_package(rcl_interfaces REQUIRED)
 find_package(rmw REQUIRED)
 find_package(rmw_implementation REQUIRED)
 find_package(rmw_implementation_cmake REQUIRED)
 find_package(rosidl_generator_c REQUIRED)
+
+if(NOT WIN32)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
+endif()
+
+# Only build the library if a C typesupport exists
+get_rmw_typesupport(typesupport_impls "rmw_implementation" LANGUAGE "c")
+if(typesupport_impls STREQUAL "")
+  message(STATUS "Skipping rclobjc because no C typesupport library was found.")
+  return()
+endif()
 
 include_directories(include)
 
@@ -29,26 +41,21 @@ ament_export_include_directories(include)
 
 ament_export_libraries(${PROJECT_NAME})
 
-macro(target)
-  if(NOT target_suffix STREQUAL "")
-    get_rcl_information("${rmw_implementation}" "rcl${target_suffix}")
-  endif()
-  add_library(${PROJECT_NAME}${target_suffix}
-    ${${PROJECT_NAME}_SRCS})
-  target_link_libraries(${PROJECT_NAME}${target_suffix} "-framework Foundation")
+add_library(${PROJECT_NAME}
+  ${${PROJECT_NAME}_SRCS}
+)
+target_link_libraries(${PROJECT_NAME} "-framework Foundation")
 
-  ament_target_dependencies(${PROJECT_NAME}${target_suffix}
-    "rcl${target_suffix}")
+ament_target_dependencies(${PROJECT_NAME}
+  "rcl"
+)
 
-  install(
-    TARGETS ${PROJECT_NAME}${target_suffix}
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
-  )
-endmacro()
-
-call_for_each_rmw_implementation(target GENERATE_DEFAULT)
+install(
+  TARGETS ${PROJECT_NAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
