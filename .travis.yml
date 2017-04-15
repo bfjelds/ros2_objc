@@ -11,6 +11,7 @@ before_install:
   - brew tap homebrew/science
 #  - brew install opencv --without-python
   - sudo -H python3 -m pip install empy setuptools nose vcstool pep8 pydocstyle pyflakes flake8 mock coverage
+  - gem install xcpretty
 
 script:
   - /bin/echo "Hello world"
