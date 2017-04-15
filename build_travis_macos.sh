@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euf -o pipefail
 
 git checkout $TRAVIS_BRANCH
 
@@ -12,4 +12,4 @@ git checkout $TRAVIS_BRANCH
 cd ~/ros2_objc_ws/src/ros2/rosidl_typesupport
 patch -p1 < ../../ros2_objc/ros2_objc/rosidl_typesupport_ros2_objc_travis.patch
 cd ~/ros2_objc_ws
-src/ament/ament_tools/scripts/ament.py build --use-xcode --symlink-install --isolated --make-flags -quiet | xcpretty && exit ${PIPESTATUS[0]}
+src/ament/ament_tools/scripts/ament.py build --use-xcode --symlink-install --isolated --make-flags -quiet | xcpretty
