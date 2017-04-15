@@ -16,4 +16,4 @@ before_install:
 script:
   - /bin/echo "Hello world"
   - /bin/pwd
-  - sh build_travis_macos.sh
+  - bash build_travis_macos.sh
