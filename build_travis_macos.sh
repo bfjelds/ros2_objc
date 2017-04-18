@@ -12,5 +12,6 @@ git checkout $TRAVIS_BRANCH
 cd ~/ros2_objc_ws/src/ros2/rosidl_typesupport
 patch -p1 < ../../ros2_objc/ros2_objc/rosidl_typesupport_ros2_objc_travis.patch
 cd ~/ros2_objc_ws
+find src/ros2/examples/rclcpp src/ros2/examples/rclpy -name "package.xml" -printf "%h\n" | xargs -i touch {}/AMENT_IGNORE
 src/ament/ament_tools/scripts/ament.py build --use-xcode --symlink-install --isolated --make-flags -quiet | tee /tmp/ament_build.log | xcpretty
 tail /tmp/ament_build.log

@@ -14,6 +14,5 @@ before_install:
   - gem install xcpretty
 
 script:
-  - /bin/echo "Hello world"
   - /bin/pwd
   - bash build_travis_macos.sh
