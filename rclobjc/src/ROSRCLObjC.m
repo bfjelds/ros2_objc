@@ -17,7 +17,7 @@
 #include <rcl/error_handling.h>
 #include <rcl/rcl.h>
 #include <rcl/node.h>
-#include <rosidl_generator_c/message_type_support.h>
+#include <rosidl_generator_c/message_type_support_struct.h>
 #include <stdlib.h>
 
 #import "rclobjc/ROSRCLObjC.h"
@@ -25,7 +25,7 @@
 
 @interface ROSRCLObjC ()
 
-+(intptr_t)createNodeHandle :(NSString *)nodeName;
++(intptr_t)createNodeHandle :(NSString *)nodeName :(NSString *)nodeNamespace;
 
 @end
 
@@ -43,18 +43,23 @@
 }
 
 +(ROSNode *)createNode :(NSString *)nodeName {
-  intptr_t nodeHandle = [ROSRCLObjC createNodeHandle:nodeName];
+  return [ROSRCLObjC createNodeWithNamespace :nodeName :@""];
+}
+
++(ROSNode *)createNodeWithNamespace :(NSString *)nodeName :(NSString *)nodeNamespace {
+  intptr_t nodeHandle = [ROSRCLObjC createNodeHandle:nodeName :nodeNamespace];
   ROSNode * node = [[ROSNode alloc] initWithNameAndHandle:nodeName :nodeHandle ];
   return node;
 }
 
-+(intptr_t)createNodeHandle :(NSString *)nodeName {
++(intptr_t)createNodeHandle :(NSString *)nodeName :(NSString *)nodeNamespace {
   const char * node_name_tmp = [nodeName UTF8String];
+  const char * node_namespace_tmp = [nodeNamespace UTF8String];
 
   rcl_node_t * node = (rcl_node_t *)malloc(sizeof(rcl_node_t));
   node->impl = NULL;
   rcl_node_options_t default_options = rcl_node_get_default_options();
-  rcl_ret_t ret = rcl_node_init(node, node_name_tmp, &default_options);
+  rcl_ret_t ret = rcl_node_init(node, node_name_tmp, node_namespace_tmp, &default_options);
   if (ret != RCL_RET_OK) {
     // TODO(esteve): check return status
     return 0;
