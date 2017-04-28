@@ -90,7 +90,7 @@ repositories:
   ros2/rmw_fastrtps:
     type: git
     url: https://github.com/esteve/rmw_fastrtps.git
-    version: honor-build-shared-libs-ios
+    version: export-libraries
   ros2/rmw_implementation:
     type: git
     url: https://github.com/ros2/rmw_implementation.git
